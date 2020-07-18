@@ -1,0 +1,25 @@
+class operaciones:
+    def __init__(self,a,b):
+        self.a=a
+        self.b=b
+    def suma(self):
+        return self.a+self.b
+    def rest(self):
+        return self.b-self.a
+
+x=operaciones(3,7)
+
+y= operaciones(5,10)
+
+x.suma
+print(x.suma())
+print(y.rest())
+
+
+
+
+
+
+
+
+
