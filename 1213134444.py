@@ -1,6 +1,6 @@
 
 import csv 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from datetime import datetime
 #se extrae la informacion del archivo csv
 work="real.csv"
@@ -29,6 +29,10 @@ with open(work) as f:
 promedio_por_dia_temperatura=[]  
 promedio_por_mes_temperatura=[]   
 promedio_por_año_termperatura=[]
+maximos_mensuales_temperatura=[]
+maximos_anuales_temperatura=[]
+minimos_mensuales_temperatura=[]
+minimos_anuales_temperatura=[]
 
 promedio_anual_datos_oficial_temperatura=[]   
 n_dia_t=dates_t[0].day
@@ -46,6 +50,10 @@ cant_datos_totales_t=0
 cambio_mes_año = True
 sumatoria_anual_de_datos_temperatura=0
 cantidad_datos_promedio_anual=0
+max_mensual_temperatura=0
+max_anual_temperatura=0
+min_mensual_temperatura=100000
+min_anual_temperatura=100000
 contador = 1
 momento_de_borrar =True
 datos_mayores_anuales_t=[]
@@ -62,6 +70,18 @@ for i in range(0,cant_datos_totales_t):
         if n_mes_t==dates_t[i].month:
             cant_datos_por_mes_t += 1
             suma_datos_por_mes_t+= temperatura[i]
+            
+            #max y min
+            if (temperatura[i] > max_mensual_temperatura):
+                max_mensual_temperatura = temperatura[i]
+            if (temperatura[i] < min_mensual_temperatura and temperatura[i] != 0):
+                min_mensual_temperatura = temperatura[i]
+            if (temperatura[i] > max_anual_temperatura):
+                max_anual_temperatura = temperatura[i]
+            if (temperatura[i] < min_anual_temperatura and temperatura[i] != 0):
+                min_anual_temperatura = temperatura[i]
+            
+            
             # servira para INCAS
             # if n_dia_t==dates_t[i].day: # n_dia_t = 13
             #     cant_datos_en_dia_t += 1
@@ -81,6 +101,10 @@ for i in range(0,cant_datos_totales_t):
           
             promedio_t = suma_datos_por_mes_t/cant_datos_por_mes_t
             promedio_por_mes_temperatura.append(promedio_t)
+            maximos_mensuales_temperatura.append(max_mensual_temperatura)
+            max_mensual_temperatura = 0
+            minimos_mensuales_temperatura.append(min_mensual_temperatura)
+            min_mensual_temperatura = 100000
             sumatoria_anual_de_datos_temperatura+=promedio_t
             cantidad_datos_promedio_anual+=1
             suma_datos_por_mes_t=temperatura[i]
@@ -90,6 +114,10 @@ for i in range(0,cant_datos_totales_t):
     else:
         promedio_t = suma_datos_por_mes_t/cant_datos_por_mes_t
         promedio_por_mes_temperatura.append(promedio_t)
+        maximos_anuales_temperatura.append(max_anual_temperatura)
+        max_anual_temperatura=0
+        minimos_anuales_temperatura.append(min_anual_temperatura)
+        min_anual_temperatura=100000
         cont_meses_actuales = len(promedio_por_mes_temperatura)%12
         diferencia2 = 12 - cont_meses_actuales
         if diferencia2 < 5:
@@ -124,6 +152,10 @@ promedio_t = suma_datos_por_mes_t/cant_datos_por_mes_t
 promedio_por_mes_temperatura.append(promedio_t)
 promedio_anual_t=sumatoria_anual_de_datos_temperatura/cantidad_datos_promedio_anual
 promedio_anual_datos_oficial_temperatura.append(promedio_anual_t)
+maximos_mensuales_temperatura.append(max_mensual_temperatura)
+minimos_mensuales_temperatura.append(min_mensual_temperatura)
+maximos_anuales_temperatura.append(max_anual_temperatura)
+minimos_anuales_temperatura.append(min_anual_temperatura)
 
 # Hay datos vacios por lo que añado ceros al arreglos
 
@@ -173,6 +205,9 @@ for e in range(0,12):
     promedio = 0
     contador_meses = 0
 
+#print(maximos_mensuales_temperatura)
+#print(minimos_mensuales_temperatura)
+
 with open(work) as f:
     read=csv.reader(f)
     cabezera=next(read)
@@ -196,6 +231,10 @@ with open(work) as f:
 promedio_por_dia_humedad=[]  
 promedio_por_mes_humedad=[]   
 promedio_por_año_humedad=[]
+maximos_mensuales_humedad=[]
+maximos_anuales_humedad=[]
+minimos_mensuales_humedad=[]
+minimos_anuales_humedad=[]
 
 
 promedio_anual_datos_oficial_humedad=[]   
@@ -211,6 +250,10 @@ suma_datos_por_año_h=0
 cant_datos_por_año_h=0
 # sumatoria de datos
 cant_datos_totales_h=0
+max_mensual_humedad=0
+max_anual_humedad=0
+min_mensual_humedad=100000
+min_anual_humedad=100000
 cambio_mes_año = True
 sumatoria_anual_de_datos_humedad=0
 cantidad_datos_promedio_anual=0
@@ -230,6 +273,18 @@ for i in range(0,cant_datos_totales_h):
         if n_mes_h==dates_h[i].month:
             cant_datos_por_mes_h += 1
             suma_datos_por_mes_h+= humedad[i]
+            
+            #max y min
+            if (humedad[i] > max_mensual_humedad):
+                max_mensual_humedad = humedad[i]
+            if (humedad[i] < min_mensual_humedad and humedad[i] != 0):
+                min_mensual_humedad = humedad[i]
+            if (humedad[i] > max_anual_humedad):
+                max_anual_humedad = humedad[i]
+            if (humedad[i] < min_anual_humedad and humedad[i] != 0):
+                min_anual_humedad = humedad[i]
+            
+            
             # servira para INCAS
             # if n_dia_t==dates_t[i].day: # n_dia_t = 13
             #     cant_datos_en_dia_t += 1
@@ -249,6 +304,10 @@ for i in range(0,cant_datos_totales_h):
           
             promedio_h = suma_datos_por_mes_h/cant_datos_por_mes_h
             promedio_por_mes_humedad.append(promedio_h)
+            maximos_mensuales_humedad.append(max_mensual_humedad)
+            max_mensual_humedad = 0
+            minimos_mensuales_humedad.append(min_mensual_humedad)
+            min_mensual_humedad = 100000
             sumatoria_anual_de_datos_humedad+=promedio_h
             cantidad_datos_promedio_anual+=1
             suma_datos_por_mes_h=humedad[i]
@@ -258,6 +317,10 @@ for i in range(0,cant_datos_totales_h):
     else:
         promedio_h = suma_datos_por_mes_h/cant_datos_por_mes_h
         promedio_por_mes_humedad.append(promedio_h)
+        maximos_anuales_humedad.append(max_anual_humedad)
+        max_anual_humedad=0
+        minimos_anuales_humedad.append(min_anual_humedad)
+        min_anual_humedad=100000
         cont_meses_actuales = len(promedio_por_mes_humedad)%12
         diferencia2 = 12 - cont_meses_actuales
         if diferencia2 < 5:
@@ -291,6 +354,10 @@ promedio_h = suma_datos_por_mes_h/cant_datos_por_mes_h
 promedio_por_mes_humedad.append(promedio_h)
 promedio_anual_h=sumatoria_anual_de_datos_humedad/cantidad_datos_promedio_anual
 promedio_anual_datos_oficial_humedad.append(promedio_anual_h)
+maximos_mensuales_humedad.append(max_mensual_humedad)
+minimos_mensuales_humedad.append(min_mensual_humedad)
+maximos_anuales_humedad.append(max_anual_humedad)
+minimos_anuales_humedad.append(min_anual_humedad)
 
 # Hay datos vacios por lo que añado ceros al arreglos
 
@@ -330,7 +397,8 @@ sumador_por_meses = []
 sumador_h=0
 contador_meses = 0
 
-    
+#print(maximos_mensuales_humedad)
+#print(minimos_mensuales_humedad)    
 
 for e in range(0,12):
     for i in promedio_por_año_humedad:
@@ -369,6 +437,10 @@ with open(work) as f:
 promedio_por_dia_direccion=[]
 promedio_por_mes_direccion=[]  
 promedio_por_año_direccion=[]
+maximos_mensuales_direccion=[]
+maximos_anuales_direccion=[]
+minimos_mensuales_direccion=[]
+minimos_anuales_direccion=[]
 
 
 promedio_anual_datos_oficial_direccion=[]
@@ -384,6 +456,10 @@ suma_datos_por_año_d=0
 cant_datos_por_año_d=0
 # sumatoria de datos
 cant_datos_totales_d=0
+max_mensual_direccion=0
+max_anual_direccion=0
+min_mensual_direccion=100000
+min_anual_direccion=100000
 cambio_mes_año = True
 sumatoria_anual_de_datos_direccion=0
 cantidad_datos_promedio_anual=0
@@ -403,6 +479,18 @@ for i in range(0,cant_datos_totales_d):
         if n_mes_d==dates_d[i].month:
             cant_datos_por_mes_d += 1
             suma_datos_por_mes_d+= direccion[i]
+            
+            #max y min
+            if (direccion[i] > max_mensual_direccion):
+                max_mensual_direccion = direccion[i]
+            if (direccion[i] < min_mensual_direccion and direccion[i] != 0):
+                min_mensual_direccion = direccion[i]
+            if (direccion[i] > max_anual_direccion):
+                max_anual_direccion = direccion[i]
+            if (direccion[i] < min_anual_direccion and direccion[i] != 0):
+                min_anual_direccion = direccion[i]
+            
+            
             # servira para INCAS
             # if n_dia_t==dates_t[i].day: # n_dia_t = 13
             #     cant_datos_en_dia_t += 1
@@ -422,6 +510,10 @@ for i in range(0,cant_datos_totales_d):
           
             promedio_d = suma_datos_por_mes_d/cant_datos_por_mes_d
             promedio_por_mes_direccion.append(promedio_d)
+            maximos_mensuales_direccion.append(max_mensual_direccion)
+            max_mensual_direccion = 0
+            minimos_mensuales_direccion.append(min_mensual_direccion)
+            min_mensual_direccion = 100000
             sumatoria_anual_de_datos_direccion+=promedio_d
             cantidad_datos_promedio_anual+=1
             suma_datos_por_mes_d=direccion[i]
@@ -431,6 +523,10 @@ for i in range(0,cant_datos_totales_d):
     else:
         promedio_d = suma_datos_por_mes_d/cant_datos_por_mes_d
         promedio_por_mes_direccion.append(promedio_d)
+        maximos_anuales_direccion.append(max_anual_direccion)
+        max_anual_direccion=0
+        minimos_anuales_direccion.append(min_anual_direccion)
+        min_anual_direccion=100000
         cont_meses_actuales = len(promedio_por_mes_direccion)%12
         diferencia2 = 12 - cont_meses_actuales
         if diferencia2 < 5:
@@ -464,6 +560,10 @@ promedio_d = suma_datos_por_mes_d/cant_datos_por_mes_d
 promedio_por_mes_direccion.append(promedio_d)
 promedio_anual_d=sumatoria_anual_de_datos_direccion/cantidad_datos_promedio_anual
 promedio_anual_datos_oficial_direccion.append(promedio_anual_d)
+maximos_mensuales_direccion.append(max_mensual_direccion)
+minimos_mensuales_direccion.append(min_mensual_direccion)
+maximos_anuales_direccion.append(max_anual_direccion)
+minimos_anuales_direccion.append(min_anual_direccion)
 
 # Hay datos vacios por lo que añado ceros al arreglos
 
@@ -520,7 +620,8 @@ for e in range(0,12):
     promedio = 0
     contador_meses = 0
 
-
+#print(maximos_mensuales_direccion)
+#print(minimos_mensuales_direccion) 
 
 
 with open(work) as f:
@@ -546,6 +647,10 @@ with open(work) as f:
 promedio_por_dia_velocidad=[]
 promedio_por_mes_velocidad=[]
 promedio_por_año_velocidad=[]
+maximos_mensuales_velocidad=[]
+maximos_anuales_velocidad=[]
+minimos_mensuales_velocidad=[]
+minimos_anuales_velocidad=[]
 
 
 promedio_anual_datos_oficial_velocidad=[]
@@ -561,6 +666,10 @@ suma_datos_por_año_v=0
 cant_datos_por_año_v=0
 # sumatoria de datos
 cant_datos_totales_v=0
+max_mensual_velocidad=0
+max_anual_velocidad=0
+min_mensual_velocidad=100000
+min_anual_velocidad=100000
 cambio_mes_año = True
 sumatoria_anual_de_datos_velocidad=0
 cantidad_datos_promedio_anual=0
@@ -580,6 +689,18 @@ for i in range(0,cant_datos_totales_v):
         if n_mes_v==dates_v[i].month:
             cant_datos_por_mes_v += 1
             suma_datos_por_mes_v+= velocidad[i]
+            
+            #max y min
+            if (velocidad[i] > max_mensual_velocidad):
+                max_mensual_velocidad = velocidad[i]
+            if (velocidad[i] < min_mensual_velocidad and velocidad[i] != 0):
+                min_mensual_velocidad = velocidad[i]
+            if (velocidad[i] > max_anual_velocidad):
+                max_anual_velocidad = velocidad[i]
+            if (velocidad[i] < min_anual_velocidad and velocidad[i] != 0):
+                min_anual_velocidad = velocidad[i]
+            
+            
             # servira para INCAS
             # if n_dia_t==dates_t[i].day: # n_dia_t = 13
             #     cant_datos_en_dia_t += 1
@@ -599,6 +720,10 @@ for i in range(0,cant_datos_totales_v):
           
             promedio_v = suma_datos_por_mes_v/cant_datos_por_mes_v
             promedio_por_mes_velocidad.append(promedio_v)
+            maximos_mensuales_velocidad.append(max_mensual_velocidad)
+            max_mensual_velocidad = 0
+            minimos_mensuales_velocidad.append(min_mensual_velocidad)
+            min_mensual_velocidad = 100000
             sumatoria_anual_de_datos_velocidad+=promedio_v
             cantidad_datos_promedio_anual+=1
             suma_datos_por_mes_v=velocidad[i]
@@ -608,6 +733,10 @@ for i in range(0,cant_datos_totales_v):
     else:
         promedio_v = suma_datos_por_mes_v/cant_datos_por_mes_v
         promedio_por_mes_velocidad.append(promedio_v)
+        maximos_anuales_velocidad.append(max_anual_velocidad)
+        max_anual_velocidad=0
+        minimos_anuales_velocidad.append(min_anual_velocidad)
+        min_anual_velocidad=100000
         cont_meses_actuales = len(promedio_por_mes_velocidad)%12
         diferencia2 = 12 - cont_meses_actuales
         if diferencia2 < 5:
@@ -642,6 +771,10 @@ promedio_v = suma_datos_por_mes_v/cant_datos_por_mes_v
 promedio_por_mes_velocidad.append(promedio_v)
 promedio_anual_v=sumatoria_anual_de_datos_velocidad/cantidad_datos_promedio_anual
 promedio_anual_datos_oficial_velocidad.append(promedio_anual_v)
+maximos_mensuales_velocidad.append(max_mensual_velocidad)
+minimos_mensuales_velocidad.append(min_mensual_velocidad)
+maximos_anuales_velocidad.append(max_anual_velocidad)
+minimos_anuales_velocidad.append(min_anual_velocidad)
 
 # Hay datos vacios por lo que añado ceros al arreglos
 
@@ -696,8 +829,12 @@ for e in range(0,12):
     sumador_v=0
     promedio = 0
     contador_meses = 0
-print(promedio_anual_datos_oficial_temperatura)
+#print(promedio_anual_datos_oficial_temperatura)
 promedio_datos_anual_t=promedio_anual_datos_oficial_temperatura
+
+print(maximos_anuales_velocidad)
+print(minimos_anuales_velocidad) 
+"""
 year=[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]      
 fig,ax=plt.subplots()
 plt.style.use("seaborn")
@@ -745,7 +882,7 @@ plt.show()
 
 
 print()
-
+"""
 
 
 
